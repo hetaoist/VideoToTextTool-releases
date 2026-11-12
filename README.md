@@ -5,6 +5,14 @@
 
 面向 Windows x64。应用内「帮助 → 检查更新」会读取本仓库的最新 Release 并完成下载、校验与安装。
 
+## 最新版本 1.1.0（2026-11-12）
+
+- **安装包瘦身 17.5 MB**：移除纯 QtWidgets 应用用不到的 Qt 模块（QML/Quick、PDF、
+  虚拟键盘及关联插件），完整包约 420 MB，功能与界面不受影响；
+- 更新设置新增「直连（不使用代理）」开关，可显式绕过系统/环境代理；
+- 修复：使用系统/环境代理时，若失败属于可判定网络错误，自动改用直连重试一次；
+  显式配置的自定义代理失败时不会静默绕过，只给出可读错误。
+
 ## 手动下载与安装
 
 1. 打开 [Releases](https://github.com/hetaoist/VideoToTextTool-releases/releases)，选择最新版本；
@@ -20,7 +28,7 @@
 每次发布都附带 `SHA256SUMS.txt`。在 PowerShell 中执行：
 
 ```powershell
-Get-FileHash .\VideoToTextTool-1.0.0-win64.zip -Algorithm SHA256
+Get-FileHash .\VideoToTextTool-1.1.0-win64.zip -Algorithm SHA256
 ```
 
 把输出的哈希与 `SHA256SUMS.txt` 中对应文件的值逐字比对。不一致时不要运行，重新下载。
@@ -38,6 +46,10 @@ Get-FileHash .\VideoToTextTool-1.0.0-win64.zip -Algorithm SHA256
    逐文件替换并备份；
 6. 任一步失败自动回滚到旧版本，应用仍可启动；成功后自动重启。
 
+> 从 1.0.0 升级到 1.1.0 也走**全量包**（差分更新尚未实现），下载体积与完整包一致。
+> 若升级过程中界面提示下载用量异常或 SHA256 校验失败，可直接从 Releases 手动下载
+> `VideoToTextTool-1.1.0-win64.zip`，退出程序后解压覆盖安装目录即可。
+
 安装目录必须可写，且同目录下存在 `VideoToTextToolUpdater.exe`。更新失败不会影响当前版本使用。
 
 ## 资产说明
@@ -54,14 +66,14 @@ Get-FileHash .\VideoToTextTool-1.0.0-win64.zip -Algorithm SHA256
 ```json
 {
   "schema": 1,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "notes": "## 变更分类 ...",
   "published_at": "2026-11-12T10:00:00Z",
   "prerelease": false,
   "payload_id": "py312-req...-ffmpeg...",
-  "assets_base": "https://github.com/hetaoist/VideoToTextTool-releases/releases/download/v1.0.0/",
+  "assets_base": "https://github.com/hetaoist/VideoToTextTool-releases/releases/download/v1.1.0/",
   "current": {
-    "name": "VideoToTextTool-1.0.0-win64.zip",
+    "name": "VideoToTextTool-1.1.0-win64.zip",
     "size": 424000000,
     "sha256": "..."
   },
