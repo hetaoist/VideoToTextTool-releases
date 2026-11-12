@@ -5,13 +5,25 @@
 
 面向 Windows x64。应用内「帮助 → 检查更新」会读取本仓库的最新 Release 并完成下载、校验与安装。
 
-## 最新版本 1.1.0（2026-11-12）
+## 最新版本 1.1.1（2026-11-12）
 
-- **安装包瘦身 17.5 MB**：移除纯 QtWidgets 应用用不到的 Qt 模块（QML/Quick、PDF、
-  虚拟键盘及关联插件），完整包约 420 MB，功能与界面不受影响；
-- 更新设置新增「直连（不使用代理）」开关，可显式绕过系统/环境代理；
-- 修复：使用系统/环境代理时，若失败属于可判定网络错误，自动改用直连重试一次；
-  显式配置的自定义代理失败时不会静默绕过，只给出可读错误。
+- **内存不足时给出可行动提示**：`mkl_malloc`、`bad_alloc`、`out of memory` 等分配
+  失败不再只显示通用文案，而是提示「关闭其他程序、改用更小的模型（如 base），
+  或保持静音切块开启后重试」，原始错误仍保留在详情中；
+- **长音频整段回退记 WARNING**：不满足切块条件而整段识别、且时长超过切块上限时，
+  日志升级为 WARNING 并带模型规格，便于从用户日志定位内存风险；
+- 相对 1.1.0 **无数据结构变更**，可直接覆盖升级。
+
+当前资产（2026-11-12）：
+
+| 文件 | 大小 | SHA256 |
+| --- | --- | --- |
+| `VideoToTextTool-1.1.1-win64.zip` | 178,049,962 B（169.8 MB） | `3a195cda3f7be79f21f3881fa0c124133fcb68389437a85af631891551006d63` |
+| `latest.json` | 1,383 B | `b95131bbf5a1f0a9a35a9ff5e6613ef4e09621aad10a68914d8eea41afe78e53` |
+| `SHA256SUMS.txt` | 178 B | 内容含上两行哈希 |
+
+上一版 1.1.0：安装包瘦身 17.5 MB（移除 QML/Quick、PDF、虚拟键盘等未使用的 Qt
+模块），新增更新设置「直连（不使用代理）」开关，并修复代理失败后的自动直连重试。
 
 ## 手动下载与安装
 
@@ -28,7 +40,7 @@
 每次发布都附带 `SHA256SUMS.txt`。在 PowerShell 中执行：
 
 ```powershell
-Get-FileHash .\VideoToTextTool-1.1.0-win64.zip -Algorithm SHA256
+Get-FileHash .\VideoToTextTool-1.1.1-win64.zip -Algorithm SHA256
 ```
 
 把输出的哈希与 `SHA256SUMS.txt` 中对应文件的值逐字比对。不一致时不要运行，重新下载。
@@ -46,9 +58,10 @@ Get-FileHash .\VideoToTextTool-1.1.0-win64.zip -Algorithm SHA256
    逐文件替换并备份；
 6. 任一步失败自动回滚到旧版本，应用仍可启动；成功后自动重启。
 
-> 从 1.0.0 升级到 1.1.0 也走**全量包**（差分更新尚未实现），下载体积与完整包一致。
-> 若升级过程中界面提示下载用量异常或 SHA256 校验失败，可直接从 Releases 手动下载
-> `VideoToTextTool-1.1.0-win64.zip`，退出程序后解压覆盖安装目录即可。
+> 从旧版本（1.0.0、1.1.0）升级到 1.1.1 也走**全量包**（差分更新尚未实现），
+> 下载体积与完整包一致。若升级过程中界面提示下载用量异常或 SHA256 校验失败，
+> 可直接从 Releases 手动下载
+> `VideoToTextTool-1.1.1-win64.zip`，退出程序后解压覆盖安装目录即可。
 
 安装目录必须可写，且同目录下存在 `VideoToTextToolUpdater.exe`。更新失败不会影响当前版本使用。
 
@@ -66,16 +79,16 @@ Get-FileHash .\VideoToTextTool-1.1.0-win64.zip -Algorithm SHA256
 ```json
 {
   "schema": 1,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "notes": "## 变更分类 ...",
-  "published_at": "2026-11-12T10:00:00Z",
+  "published_at": "2026-11-12T09:51:16Z",
   "prerelease": false,
   "payload_id": "py312-req...-ffmpeg...",
-  "assets_base": "https://github.com/hetaoist/VideoToTextTool-releases/releases/download/v1.1.0/",
+  "assets_base": "https://github.com/hetaoist/VideoToTextTool-releases/releases/download/v1.1.1/",
   "current": {
-    "name": "VideoToTextTool-1.1.0-win64.zip",
-    "size": 424000000,
-    "sha256": "..."
+    "name": "VideoToTextTool-1.1.1-win64.zip",
+    "size": 178049962,
+    "sha256": "3a195cda3f7be79f21f3881fa0c124133fcb68389437a85af631891551006d63"
   },
   "delete": []
 }
